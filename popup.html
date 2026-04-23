@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #111;
+      color: #e0e0e0;
+      padding: 16px;
+    }
+
+    .header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .header-icon { font-size: 20px; }
+    .header-title { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+
+    .session-btn {
+      width: 100%; padding: 12px 0; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.5px;
+    }
+    .session-btn:active { transform: scale(0.97); }
+
+    .btn-start { background: #e74c3c; color: #fff; }
+    .btn-start:hover { background: #c0392b; }
+
+    .btn-stop { background: #2a2a3e; color: #aaa; border: 1px solid #444; }
+    .btn-stop:hover { background: #333350; color: #ddd; }
+
+    .status {
+      text-align: center; font-size: 12px; color: #666;
+      margin-top: 10px; min-height: 16px;
+    }
+    .status.active { color: #e74c3c; font-weight: 600; }
+
+    .divider { border: none; border-top: 1px solid #222; margin: 12px 0; }
+
+    .list-section { margin-top: 4px; }
+    .list-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+      color: #555; margin-bottom: 4px; display: block;
+    }
+
+    .domain-list {
+      display: flex; flex-direction: column; gap: 3px;
+      max-height: 120px; overflow-y: auto;
+    }
+
+    .domain-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 8px; border-radius: 4px; font-size: 11px;
+    }
+    .domain-item.blocked { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+    .domain-item.allowed { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+
+    .domain-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .action-btn {
+      background: none; border: 1px solid; font-size: 10px;
+      padding: 2px 6px; border-radius: 3px; cursor: pointer;
+      font-family: inherit; margin-left: 6px;
+    }
+    .action-btn.unblock { border-color: #e74c3c44; color: #e74c3c; }
+    .action-btn.unblock:hover { background: #e74c3c22; }
+    .action-btn.revoke { border-color: #2ecc7144; color: #2ecc71; }
+    .action-btn.revoke:hover { background: #2ecc7122; }
+
+    .empty { font-size: 11px; color: #444; font-style: italic; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="header-icon">🛡️</span>
+    <span class="header-title">Dynamic Site Blocker</span>
+  </div>
+
+  <button class="session-btn btn-start" id="startBtn">Start Session</button>
+  <button class="session-btn btn-stop" id="stopBtn" style="display:none">End Session</button>
+
+  <div class="status" id="status">Session inactive</div>
+
+  <div id="listsContainer" style="display:none">
+    <hr class="divider" />
+
+    <div class="list-section">
+      <span class="list-label">🚫 Blocked</span>
+      <div class="domain-list" id="blockedList">
+        <span class="empty">None</span>
+      </div>
+    </div>
+
+    <div class="list-section" style="margin-top: 10px;">
+      <span class="list-label">✅ Allowed</span>
+      <div class="domain-list" id="allowedList">
+        <span class="empty">None</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
